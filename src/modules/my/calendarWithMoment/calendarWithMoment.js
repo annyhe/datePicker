@@ -1,13 +1,11 @@
-import { LightningElement, track } from 'lwc';
+import { LightningElement } from 'lwc';
 import moment from 'moment';
 
 export default class CalendarWithMoment extends LightningElement {
     initializeDatepicker;
-    @track calendarString;
     today = moment();
     dateContext = moment();
     selectedDate = moment();
-    days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
     get year() {
         return this.dateContext.format('Y');
@@ -34,6 +32,7 @@ export default class CalendarWithMoment extends LightningElement {
     }
 
     drawCalendar() {
+        // draw header 
         const calendarHolder = this.template.querySelector('.calendarHolder');
         const calendar = [];
         const startWeek = moment()
@@ -70,13 +69,12 @@ export default class CalendarWithMoment extends LightningElement {
         this.calendarString = JSON.stringify(calendar);
     }
 
-    // use data-date in HTML, versus build out the selected date?
     renderedCallback() {
         if (this.initializeDatepicker) {
             return;
         }
 
-        this.initializeDatepicker = true; 
+        this.initializeDatepicker = true;
         this.drawCalendar();
     }
 }

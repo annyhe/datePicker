@@ -7,36 +7,34 @@
     margin: 0 auto;
 }
 
-.dates ul li {
+li {
     display: flex;
     align-items: center;
     justify-content: center;
     min-width: 50px;
     min-height: 50px;
+    margin: 1px;
+}
+
+.calendarHolder li {
     background-color: gray;
     color: white;
-    margin: 1px;
     cursor: pointer;
 }
 
-.dates ul li:hover {
+.header li {
+    background-color: white;
+    color: black;
+}
+
+.calendarHolder li:hover {
     background-color: red;
 }
 
-.dates .padder,
-.dates .padder:hover {
+.calendarHolder .padder {
     background-color: Khaki;
-    cursor: auto;
 }
 
-.dates .date.selected {
+.calendarHolder .date.selected {
     background-color: green;
-}
-
-.dates .date.disabled {
-    background-color: silver;
-}
-
-.dates .date.disabled:hover {
-    background-color: YellowGreen;
-}
+}  
