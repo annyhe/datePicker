@@ -2,7 +2,7 @@
     "name": "calendar",
     "version": "0.0.0",
     "author": "Anny He",
-    "bugs": "https://github.com/Anny He/calendar/issues",
+    "bugs": "https://github.com/annyhe/calendar/issues",
     "dependencies": {
         "lwc-services": "^1.2.2"
     },
@@ -13,7 +13,7 @@
     "engines": {
         "node": ">=10.0.0"
     },
-    "homepage": "https://github.com/Anny He/calendar",
+    "homepage": "https://github.com/annyhe/calendar",
     "husky": {
         "hooks": {
             "pre-commit": "lint-staged"
@@ -34,7 +34,7 @@
             "git add"
         ]
     },
-    "repository": "Anny He/calendar",
+    "repository": "annyhe/calendar",
     "scripts": {
         "build": "lwc-services build -m production",
         "build:development": "lwc-services build",

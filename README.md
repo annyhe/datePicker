@@ -1,6 +1,7 @@
 # calendar
 
-Here will be some information about the app.
+Pure Javascript Lighting Web Component calendar component. Built off of Salesforce using LWC OSS.
+The component is at [`src/modules/my/calendar`](./src/modules/my/calendar)
 
 ## How to start?
 
