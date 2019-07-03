@@ -1,10 +1,10 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, track } from 'lwc';
 import moment from 'moment';
 
 export default class CalendarWithMoment extends LightningElement {
     initializeDatepicker;
     today = moment();
-    dateContext = moment();
+    @track dateContext = moment();
     selectedDate = moment();
 
     get year() {
@@ -14,15 +14,17 @@ export default class CalendarWithMoment extends LightningElement {
         return this.dateContext.format('MMMM');
     }
     get currentDate() {
-        return this.dateContext.get('date');
+        return this.dateContext.format('YYYY-MM-DD');
     }
 
     previousMonth() {
-        moment(this.dateContext).subtract(1, 'month');
+        this.dateContext = moment(this.dateContext).subtract(1, 'month');
+        this.drawCalendar();
     }
 
     nextMonth() {
-        moment(this.dateContext).add(1, 'month');
+        this.dateContext = moment(this.dateContext).add(1, 'month');
+        this.drawCalendar();
     }
 
     goToday() {
@@ -30,15 +32,23 @@ export default class CalendarWithMoment extends LightningElement {
         this.dateContext = this.today;
         this.drawCalendar();
     }
+    
+    getCleanCalendar() {
+        const calendarHolder = this.template.querySelector('.calendarHolder');
+        if (calendarHolder) {
+            while (calendarHolder.firstChild) {
+                calendarHolder.removeChild(calendarHolder.firstChild);
+            }
+        }
+        return calendarHolder;
+    }
 
     drawCalendar() {
-        // draw header 
-        const calendarHolder = this.template.querySelector('.calendarHolder');
-        const calendar = [];
-        const startWeek = moment()
+        const calendarHolder = this.getCleanCalendar();
+        const startWeek = this.dateContext
             .startOf('month')
             .week();
-        const endWeek = moment()
+        const endWeek = this.dateContext
             .endOf('month')
             .week();
 
@@ -65,8 +75,6 @@ export default class CalendarWithMoment extends LightningElement {
                     calendarHolder.appendChild(listElem);
                 });
         }
-
-        this.calendarString = JSON.stringify(calendar);
     }
 
     renderedCallback() {

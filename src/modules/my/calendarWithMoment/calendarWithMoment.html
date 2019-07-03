@@ -2,10 +2,10 @@
     <div class="dates">
         <p>{month} {year}</p>
         <p>Current date: {currentDate}</p>
-        <button onclik={previousMonth}>Previous</button>
-        <button onclik={nextMonth}>nextMonth</button>
-        <button onclik={goToday}>today</button>
-        <ul class='header'>
+        <button onclick={previousMonth}>Previous</button>
+        <button onclick={nextMonth}>Next</button>
+        <button onclick={goToday}>today</button>
+        <ul class="header">
             <li>Sun</li>
             <li>Mon</li>
             <li>Tue</li>
@@ -16,6 +16,4 @@
         </ul>
         <ul class="calendarHolder" lwc:dom="manual"></ul>
     </div>
-    <p>hello</p>
-    <div>{calendarString}</div>
 </template>
