@@ -3,9 +3,10 @@ import moment from 'moment';
 
 export default class CalendarWithMoment extends LightningElement {
     initializeDatepicker;
-    today = moment();
     @track dateContext = moment();
     selectedDate = moment();
+    today = moment();
+    lastClass;
 
     get year() {
         return this.dateContext.format('Y');
@@ -32,8 +33,20 @@ export default class CalendarWithMoment extends LightningElement {
         this.dateContext = this.today;
         this.drawCalendar();
     }
-    
-    getCleanCalendar() {
+
+    setSelected(e) {
+        const selectedDate = this.template.querySelector('.selected');
+        if (selectedDate) {
+            selectedDate.className = this.lastClass;
+        }
+
+        const date = e.target.dataset.date;
+        this.dateContext = moment(date);
+        this.lastClass = e.target.className;
+        e.target.className = 'selected';
+    }
+
+    cleanCalendar() {
         const calendarHolder = this.template.querySelector('.calendarHolder');
         if (calendarHolder) {
             while (calendarHolder.firstChild) {
@@ -44,13 +57,9 @@ export default class CalendarWithMoment extends LightningElement {
     }
 
     drawCalendar() {
-        const calendarHolder = this.getCleanCalendar();
-        const startWeek = this.dateContext
-            .startOf('month')
-            .week();
-        const endWeek = this.dateContext
-            .endOf('month')
-            .week();
+        const calendarHolder = this.cleanCalendar();
+        const startWeek = this.dateContext.startOf('month').week();
+        const endWeek = this.dateContext.endOf('month').week();
 
         for (let week = startWeek; week <= endWeek; week++) {
             Array(7)
@@ -63,7 +72,13 @@ export default class CalendarWithMoment extends LightningElement {
                         .add(n + i, 'day');
                     const listElem = document.createElement('li');
                     if (day.month() === this.dateContext.month()) {
-                        listElem.setAttribute('class', 'date');
+                        if (day.isSame(this.today, 'day')) {
+                            listElem.setAttribute('class', 'today');
+                        } else if (day.isSame(this.selectedDate, 'day')) {
+                            listElem.setAttribute('class', 'selected');
+                        } else {
+                            listElem.setAttribute('class', 'date');
+                        }
                         listElem.setAttribute(
                             'data-date',
                             day.format('YYYY-MM-DD')
@@ -72,6 +87,7 @@ export default class CalendarWithMoment extends LightningElement {
                         listElem.setAttribute('class', 'padder');
                     }
                     listElem.textContent = day.format('DD');
+                    listElem.onclick = this.setSelected.bind(this);
                     calendarHolder.appendChild(listElem);
                 });
         }

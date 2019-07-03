@@ -35,6 +35,10 @@ li {
     background-color: Khaki;
 }
 
-.calendarHolder .date.selected {
+.calendarHolder .today {
+    background-color: orange;
+}
+
+.calendarHolder .selected {
     background-color: green;
 }
