@@ -58,10 +58,11 @@ export default class CalendarWithMoment extends LightningElement {
 
     drawCalendar() {
         const calendarHolder = this.cleanCalendar();
-        const startWeek = this.dateContext.startOf('month').week();
-        const endWeek = this.dateContext.endOf('month').week();
-
-        for (let week = startWeek; week <= endWeek; week++) {
+        const startWeek = this.dateContext.startOf('month').isoWeek();
+        // In case last week is in next year
+        const start = moment(this.dateContext).startOf('month');
+        const numWeeks = moment.duration(moment(this.dateContext).endOf('month') - start).weeks() + 1;        
+        for (let week = startWeek; week <= startWeek + numWeeks; week++) {
             Array(7)
                 .fill(0)
                 .forEach((n, i) => {
@@ -79,13 +80,13 @@ export default class CalendarWithMoment extends LightningElement {
                         } else {
                             listElem.setAttribute('class', 'date');
                         }
-                        listElem.setAttribute(
-                            'data-date',
-                            day.format('YYYY-MM-DD')
-                        );
                     } else {
                         listElem.setAttribute('class', 'padder');
                     }
+                    listElem.setAttribute(
+                        'data-date',
+                        day.format('YYYY-MM-DD')
+                    );                    
                     listElem.textContent = day.format('DD');
                     listElem.onclick = this.setSelected.bind(this);
                     calendarHolder.appendChild(listElem);
