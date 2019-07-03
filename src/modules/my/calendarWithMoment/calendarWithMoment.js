@@ -4,19 +4,19 @@ import moment from 'moment';
 export default class CalendarWithMoment extends LightningElement {
     initializeDatepicker;
     @track dateContext = moment();
-    selectedDate = moment();
+    @track selectedDate = moment();
     today = moment();
     lastClass;
 
+    get formattedSelectedDate() {
+        return this.selectedDate.format('YYYY-MM-DD');
+    }
     get year() {
         return this.dateContext.format('Y');
     }
     get month() {
         return this.dateContext.format('MMMM');
-    }
-    get currentDate() {
-        return this.dateContext.format('YYYY-MM-DD');
-    }
+    } 
 
     previousMonth() {
         this.dateContext = moment(this.dateContext).subtract(1, 'month');
@@ -41,7 +41,8 @@ export default class CalendarWithMoment extends LightningElement {
         }
 
         const date = e.target.dataset.date;
-        this.dateContext = moment(date);
+        this.selectedDate = moment(date);
+        this.dateContext = moment(date); 
         this.lastClass = e.target.className;
         e.target.className = 'selected';
     }
@@ -58,15 +59,18 @@ export default class CalendarWithMoment extends LightningElement {
 
     drawCalendar() {
         const calendarHolder = this.cleanCalendar();
-        const startWeek = this.dateContext.startOf('month').isoWeek();
-        // In case last week is in next year
-        const start = moment(this.dateContext).startOf('month');
-        const numWeeks = moment.duration(moment(this.dateContext).endOf('month') - start).weeks() + 1;        
+        const currentMoment = moment(this.dateContext);
+        const start = this.dateContext.startOf('month');
+        const startWeek = start.isoWeek();
+        const numWeeks =
+            moment
+                .duration(currentMoment.endOf('month') - start)
+                .weeks() + 1;
         for (let week = startWeek; week <= startWeek + numWeeks; week++) {
             Array(7)
                 .fill(0)
                 .forEach((n, i) => {
-                    const day = moment()
+                    const day = currentMoment
                         .week(week)
                         .startOf('week')
                         .clone()
@@ -86,7 +90,7 @@ export default class CalendarWithMoment extends LightningElement {
                     listElem.setAttribute(
                         'data-date',
                         day.format('YYYY-MM-DD')
-                    );                    
+                    );
                     listElem.textContent = day.format('DD');
                     listElem.onclick = this.setSelected.bind(this);
                     calendarHolder.appendChild(listElem);

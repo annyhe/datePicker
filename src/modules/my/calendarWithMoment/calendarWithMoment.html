@@ -1,10 +1,15 @@
 <template>
     <div class="dates">
-        <p>{month} {year}</p>
-        <p>Selected date: {currentDate}</p>
-        <button onclick={previousMonth}>Previous</button>
-        <button onclick={nextMonth}>Next</button>
-        <button onclick={goToday}>today</button>
+        <div class="buttonContainer">
+            <button class="link" onclick={goToday}>Today</button>
+            <p>{formattedSelectedDate}</p>
+            <p class="bold">{year}</p>
+        </div>
+        <div class="buttonContainer">
+            <button class="prev" onclick={previousMonth}>Prev</button>
+            <span class="bold">{month}</span>
+            <button class="next" onclick={nextMonth}>Next</button>
+        </div>
         <ul class="header">
             <li>Sun</li>
             <li>Mon</li>

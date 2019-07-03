@@ -1,3 +1,19 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+}
+
+.bold {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.link {
+    color: #007bff;
+    border: 0;
+}
+
 .dates ul {
     display: flex;
     flex-wrap: wrap;
@@ -16,9 +32,39 @@ li {
     margin: 1px;
 }
 
+.buttonContainer {
+    width: 364px;
+    margin: 10px auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: none;
+}
+
+.prev,
+.next {
+    border: none;
+    width: 70px;
+}
+
+.prev:hover,
+.next:hover,
+.link:hover {
+    cursor: pointer;
+}
+
+.prev:before {
+    content: '←';
+    padding-right: 4px;
+}
+
+.next:after {
+    content: '→';
+    padding-left: 4px;
+}
+
 .calendarHolder li {
-    background-color: gray;
-    color: white;
+    color: black;
     cursor: pointer;
 }
 
@@ -32,7 +78,7 @@ li {
 }
 
 .calendarHolder .padder {
-    background-color: Khaki;
+    color: gray;
 }
 
 .calendarHolder .today {
@@ -40,5 +86,5 @@ li {
 }
 
 .calendarHolder .selected {
-    background-color: green;
+    background-color: pink;
 }
