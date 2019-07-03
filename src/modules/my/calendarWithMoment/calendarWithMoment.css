@@ -1,0 +1,42 @@
+.dates ul {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    width: 364px;
+    margin: 0 auto;
+}
+
+.dates ul li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 50px;
+    min-height: 50px;
+    background-color: gray;
+    color: white;
+    margin: 1px;
+    cursor: pointer;
+}
+
+.dates ul li:hover {
+    background-color: red;
+}
+
+.dates .padder,
+.dates .padder:hover {
+    background-color: Khaki;
+    cursor: auto;
+}
+
+.dates .date.selected {
+    background-color: green;
+}
+
+.dates .date.disabled {
+    background-color: silver;
+}
+
+.dates .date.disabled:hover {
+    background-color: YellowGreen;
+}
