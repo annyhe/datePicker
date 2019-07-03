@@ -1,0 +1,14 @@
+<template>
+    <div class="center">
+        <p>Selected Date: <span class="selectedDate">{selectedDate}</span></p>
+        <div class="calendar-wrapper">
+            <button class="btnPrev" onclick={previousMonth} type="button">
+                PREV
+            </button>
+            <button class="btnNext" onclick={nextMonth} type="button">
+                NEXT
+            </button>
+            <div lwc:dom="manual" class="divCal"></div>
+        </div>
+    </div>
+</template>
