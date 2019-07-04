@@ -1,7 +1,7 @@
 # Date picker
 
 Pure Javascript Lighting Web Component date picker component. Using LWC OSS.
-The component is at [`src/modules/my/calendar`](./src/modules/my/calendar)
+The component is at [`src/modules/my/datePicker`](./src/modules/my/datePicker)
 
 ## How to start?
 

@@ -15,7 +15,7 @@ describe('my-app', () => {
         while (document.body.firstChild) {
             document.body.removeChild(document.body.firstChild);
         }
-    }); 
+    });
 
     it('contains one active custom element my-date-picker', () => {
         const element = createElement('my-app', {
@@ -24,7 +24,9 @@ describe('my-app', () => {
         document.body.appendChild(element);
 
         // Get array of my-greeting custom elements
-        const greetingEls = element.shadowRoot.querySelectorAll('my-date-picker');
+        const greetingEls = element.shadowRoot.querySelectorAll(
+            'my-date-picker'
+        );
 
         expect(greetingEls.length).toBe(1);
     });

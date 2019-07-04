@@ -23,9 +23,11 @@ describe('date-picker', () => {
         });
         document.body.appendChild(element);
 
-        const greetingEls = element.shadowRoot.querySelectorAll('.buttonContainer');
+        const greetingEls = element.shadowRoot.querySelectorAll(
+            '.buttonContainer'
+        );
 
-        expect(greetingEls.length).toBe(2);        
+        expect(greetingEls.length).toBe(2);
     });
 
     it('contains certain days of the current month', () => {
@@ -36,8 +38,8 @@ describe('date-picker', () => {
 
         const greetingEls = element.shadowRoot.querySelectorAll('.date');
 
-        expect(greetingEls.length).toBeGreaterThan(27);        
-    });    
+        expect(greetingEls.length).toBeGreaterThan(27);
+    });
 
     it('contains some days of the previous/next month', () => {
         const element = createElement('my-date-picker', {
@@ -47,8 +49,8 @@ describe('date-picker', () => {
 
         const greetingEls = element.shadowRoot.querySelectorAll('.padder');
 
-        expect(greetingEls.length).toBeGreaterThan(1);        
-    });        
+        expect(greetingEls.length).toBeGreaterThan(1);
+    });
 
     it('contains today', () => {
         const element = createElement('my-date-picker', {
@@ -58,6 +60,6 @@ describe('date-picker', () => {
 
         const greetingEls = element.shadowRoot.querySelectorAll('.today');
 
-        expect(greetingEls.length).toEqual(1);        
-    });        
+        expect(greetingEls.length).toEqual(1);
+    });
 });
