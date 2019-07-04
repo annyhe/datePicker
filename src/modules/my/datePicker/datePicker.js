@@ -1,4 +1,4 @@
-import { LightningElement, track } from 'lwc';
+import { LightningElement, api, track } from 'lwc';
 import moment from 'moment';
 
 export default class CalendarWithMoment extends LightningElement {
@@ -34,6 +34,7 @@ export default class CalendarWithMoment extends LightningElement {
         this.drawCalendar();
     }
 
+    @api
     setSelected(e) {
         const selectedDate = this.template.querySelector('.selected');
         if (selectedDate) {
@@ -60,7 +61,8 @@ export default class CalendarWithMoment extends LightningElement {
     drawCalendar() {
         const calendarHolder = this.cleanCalendar();
         const currentMoment = moment(this.dateContext);
-        const start = this.dateContext.startOf('month');
+        // startOf mutates moment, hence clone before use
+        const start = this.dateContext.clone().startOf('month');
         const startWeek = start.isoWeek();
         const numWeeks =
             moment.duration(currentMoment.endOf('month') - start).weeks() + 1;
