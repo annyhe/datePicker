@@ -16,7 +16,7 @@ export default class CalendarWithMoment extends LightningElement {
     }
     get month() {
         return this.dateContext.format('MMMM');
-    } 
+    }
 
     previousMonth() {
         this.dateContext = moment(this.dateContext).subtract(1, 'month');
@@ -42,7 +42,7 @@ export default class CalendarWithMoment extends LightningElement {
 
         const date = e.target.dataset.date;
         this.selectedDate = moment(date);
-        this.dateContext = moment(date); 
+        this.dateContext = moment(date);
         this.lastClass = e.target.className;
         e.target.className = 'selected';
     }
@@ -63,9 +63,7 @@ export default class CalendarWithMoment extends LightningElement {
         const start = this.dateContext.startOf('month');
         const startWeek = start.isoWeek();
         const numWeeks =
-            moment
-                .duration(currentMoment.endOf('month') - start)
-                .weeks() + 1;
+            moment.duration(currentMoment.endOf('month') - start).weeks() + 1;
         for (let week = startWeek; week <= startWeek + numWeeks; week++) {
             Array(7)
                 .fill(0)

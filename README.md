@@ -1,6 +1,6 @@
-# calendar
+# Date picker
 
-Pure Javascript Lighting Web Component calendar component. Built off of Salesforce using LWC OSS.
+Pure Javascript Lighting Web Component date picker component. Using LWC OSS.
 The component is at [`src/modules/my/calendar`](./src/modules/my/calendar)
 
 ## How to start?
