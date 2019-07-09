@@ -48,8 +48,10 @@ export default class DatePicker extends LightningElement {
         e.target.className = 'selected';
     }
 
-    cleandatepicker() {
-        const datePickerHolder = this.template.querySelector('.datePickerHolder');
+    cleanDatePicker() {
+        const datePickerHolder = this.template.querySelector(
+            '.datePickerHolder'
+        );
         if (datePickerHolder) {
             while (datePickerHolder.firstChild) {
                 datePickerHolder.removeChild(datePickerHolder.firstChild);
@@ -59,7 +61,7 @@ export default class DatePicker extends LightningElement {
     }
 
     setDateNodes() {
-        const datePickerHolder = this.cleandatepicker();
+        const datePickerHolder = this.cleanDatePicker();
         const currentMoment = moment(this.dateContext);
         // startOf mutates moment, hence clone before use
         const start = this.dateContext.clone().startOf('month');
