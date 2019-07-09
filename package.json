@@ -47,6 +47,7 @@
         "test:unit:coverage": "lwc-services test --coverage",
         "test:unit:debug": "lwc-services test --debug",
         "test:unit:watch": "lwc-services test --watch",
-        "watch": "lwc-services watch"
+        "watch": "lwc-services watch",
+        "start": "lwc-services watch"
     }
 }
