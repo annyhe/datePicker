@@ -14,13 +14,23 @@
     border: 0;
 }
 
+.dates {
+    width: 400px;
+    border: 1px solid gray;
+    border-radius: 16px;
+    margin: 0 auto;
+}
+
 .dates ul {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
     justify-content: flex-start;
     width: 364px;
     margin: 0 auto;
+}
+
+.dates .calendarHolder {
+    flex-wrap: wrap;
 }
 
 li {
