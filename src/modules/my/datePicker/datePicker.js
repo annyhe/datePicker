@@ -1,7 +1,7 @@
 import { LightningElement, api, track } from 'lwc';
 import moment from 'moment';
 
-export default class CalendarWithMoment extends LightningElement {
+export default class DatePicker extends LightningElement {
     initializeDatepicker;
     @track dateContext = moment();
     @track selectedDate = moment();
@@ -20,18 +20,18 @@ export default class CalendarWithMoment extends LightningElement {
 
     previousMonth() {
         this.dateContext = moment(this.dateContext).subtract(1, 'month');
-        this.drawCalendar();
+        this.setDateNodes();
     }
 
     nextMonth() {
         this.dateContext = moment(this.dateContext).add(1, 'month');
-        this.drawCalendar();
+        this.setDateNodes();
     }
 
     goToday() {
         this.selectedDate = this.today;
         this.dateContext = this.today;
-        this.drawCalendar();
+        this.setDateNodes();
     }
 
     @api
@@ -48,22 +48,23 @@ export default class CalendarWithMoment extends LightningElement {
         e.target.className = 'selected';
     }
 
-    cleanCalendar() {
-        const calendarHolder = this.template.querySelector('.calendarHolder');
-        if (calendarHolder) {
-            while (calendarHolder.firstChild) {
-                calendarHolder.removeChild(calendarHolder.firstChild);
+    cleandatepicker() {
+        const datePickerHolder = this.template.querySelector('.datePickerHolder');
+        if (datePickerHolder) {
+            while (datePickerHolder.firstChild) {
+                datePickerHolder.removeChild(datePickerHolder.firstChild);
             }
         }
-        return calendarHolder;
+        return datePickerHolder;
     }
 
-    drawCalendar() {
-        const calendarHolder = this.cleanCalendar();
+    setDateNodes() {
+        const datePickerHolder = this.cleandatepicker();
         const currentMoment = moment(this.dateContext);
         // startOf mutates moment, hence clone before use
         const start = this.dateContext.clone().startOf('month');
         const startWeek = start.isoWeek();
+        // months do not always have the same number of weeks. eg. February
         const numWeeks =
             moment.duration(currentMoment.endOf('month') - start).weeks() + 1;
         for (let week = startWeek; week <= startWeek + numWeeks; week++) {
@@ -93,7 +94,7 @@ export default class CalendarWithMoment extends LightningElement {
                     );
                     listElem.textContent = day.format('DD');
                     listElem.onclick = this.setSelected.bind(this);
-                    calendarHolder.appendChild(listElem);
+                    datePickerHolder.appendChild(listElem);
                 });
         }
     }
@@ -104,6 +105,6 @@ export default class CalendarWithMoment extends LightningElement {
         }
 
         this.initializeDatepicker = true;
-        this.drawCalendar();
+        this.setDateNodes();
     }
 }

@@ -29,7 +29,7 @@
     margin: 0 auto;
 }
 
-.dates .calendarHolder {
+.dates .datePickerHolder {
     flex-wrap: wrap;
 }
 
@@ -73,7 +73,7 @@ li {
     padding-left: 4px;
 }
 
-.calendarHolder li {
+.datePickerHolder li {
     color: black;
     cursor: pointer;
 }
@@ -83,18 +83,18 @@ li {
     color: black;
 }
 
-.calendarHolder li:hover {
+.datePickerHolder li:hover {
     background-color: red;
 }
 
-.calendarHolder .padder {
+.datePickerHolder .padder {
     color: gray;
 }
 
-.calendarHolder .today {
+.datePickerHolder .today {
     background-color: orange;
 }
 
-.calendarHolder .selected {
+.datePickerHolder .selected {
     background-color: pink;
 }
