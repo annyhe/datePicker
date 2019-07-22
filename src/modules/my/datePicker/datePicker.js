@@ -1,11 +1,12 @@
 import { LightningElement, api, track } from 'lwc';
 import moment from 'moment';
 
+const today = moment();
 export default class DatePicker extends LightningElement {
-    initializeDatepicker;
+    isDatePickerInitialized;
     @track dateContext = moment();
     @track selectedDate = moment();
-    today = moment();
+    @track error;
     lastClass;
 
     get formattedSelectedDate() {
@@ -20,18 +21,18 @@ export default class DatePicker extends LightningElement {
 
     previousMonth() {
         this.dateContext = moment(this.dateContext).subtract(1, 'month');
-        this.setDateNodes();
+        this.refreshDateNodes();
     }
 
     nextMonth() {
         this.dateContext = moment(this.dateContext).add(1, 'month');
-        this.setDateNodes();
+        this.refreshDateNodes();
     }
 
     goToday() {
-        this.selectedDate = this.today;
-        this.dateContext = this.today;
-        this.setDateNodes();
+        this.selectedDate = today;
+        this.dateContext = today;
+        this.refreshDateNodes();
     }
 
     @api
@@ -57,11 +58,20 @@ export default class DatePicker extends LightningElement {
                 datePickerHolder.removeChild(datePickerHolder.firstChild);
             }
         }
+        
+        // datePicker is defined or null
         return datePickerHolder;
     }
 
-    setDateNodes() {
+    refreshDateNodes() {
         const datePickerHolder = this.cleanDatePicker();
+        if (!datePickerHolder) {
+            this.error = 'Datepicker holder not found: element with class datePickerHolder was not rendered.';
+            return;
+        }
+
+        // datePickerHolder is defined
+        this.error = '';
         const currentMoment = moment(this.dateContext);
         // startOf mutates moment, hence clone before use
         const start = this.dateContext.clone().startOf('month');
@@ -80,7 +90,7 @@ export default class DatePicker extends LightningElement {
                         .add(n + i, 'day');
                     const listElem = document.createElement('li');
                     if (day.month() === this.dateContext.month()) {
-                        if (day.isSame(this.today, 'day')) {
+                        if (day.isSame(today, 'day')) {
                             listElem.setAttribute('class', 'today');
                         } else if (day.isSame(this.selectedDate, 'day')) {
                             listElem.setAttribute('class', 'selected');
@@ -102,11 +112,11 @@ export default class DatePicker extends LightningElement {
     }
 
     renderedCallback() {
-        if (this.initializeDatepicker) {
+        if (this.isDatePickerInitialized) {
             return;
         }
 
-        this.initializeDatepicker = true;
-        this.setDateNodes();
+        this.isDatePickerInitialized = true;
+        this.refreshDateNodes();
     }
 }

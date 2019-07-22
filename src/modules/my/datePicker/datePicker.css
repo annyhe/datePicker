@@ -76,6 +76,7 @@ li {
 .datePickerHolder li {
     color: black;
     cursor: pointer;
+    border-radius: 8px;
 }
 
 .header li {
