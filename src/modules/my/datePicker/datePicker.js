@@ -42,7 +42,7 @@ export default class DatePicker extends LightningElement {
             selectedDate.className = this.lastClass;
         }
 
-        const date = e.target.dataset.date;
+        const {date} = e.target.dataset;
         this.selectedDate = moment(date);
         this.dateContext = moment(date);
         this.lastClass = e.target.className;
@@ -58,7 +58,7 @@ export default class DatePicker extends LightningElement {
                 datePickerHolder.removeChild(datePickerHolder.firstChild);
             }
         }
-        
+
         // datePicker is defined or null
         return datePickerHolder;
     }
@@ -66,7 +66,8 @@ export default class DatePicker extends LightningElement {
     refreshDateNodes() {
         const datePickerHolder = this.cleanDatePicker();
         if (!datePickerHolder) {
-            this.error = 'Datepicker holder not found: element with class datePickerHolder was not rendered.';
+            this.error =
+                'Datepicker holder not found: element with class datePickerHolder was not rendered.';
             return;
         }
 

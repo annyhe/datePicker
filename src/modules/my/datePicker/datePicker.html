@@ -1,18 +1,18 @@
 <template>
     <template if:true={error}>
         <p>{error}</p>
-    </template>   
+    </template>
     <template if:false={error}>
         <div class="dates">
             <div class="buttonContainer">
-                <button class="link" onclick={goToday}>Today</button>
+                <button class="link" type="button" onclick={goToday}>Today</button>
                 <p>{formattedSelectedDate}</p>
                 <p class="bold">{year}</p>
             </div>
             <div class="buttonContainer">
-                <button class="prev" onclick={previousMonth}>Prev</button>
+                <button class="prev" type="button" onclick={previousMonth}>Prev</button>
                 <span class="bold">{month}</span>
-                <button class="next" onclick={nextMonth}>Next</button>
+                <button class="next" type="button" onclick={nextMonth}>Next</button>
             </div>
             <ul class="header">
                 <li>Sun</li>
@@ -25,5 +25,5 @@
             </ul>
             <ul class="datePickerHolder" lwc:dom="manual"></ul>
         </div>
-    </template>           
+    </template>
 </template>
