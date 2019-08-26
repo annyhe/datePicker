@@ -6,7 +6,6 @@ export default class DatePicker extends LightningElement {
     lastClass;
     @track dateContext = moment();
     @track selectedDate = moment();
-    @track error;
     @track dates = [];
 
     get formattedSelectedDate() {
@@ -51,7 +50,6 @@ export default class DatePicker extends LightningElement {
 
     refreshDateNodes() {
         this.dates = [];
-        this.error = '';
         const currentMoment = moment(this.dateContext);
         // startOf mutates moment, hence clone before use
         const start = this.dateContext.clone().startOf('month');
@@ -89,7 +87,7 @@ export default class DatePicker extends LightningElement {
         }
     }
 
-    connectedCallback() { 
+    connectedCallback() {
         this.refreshDateNodes();
     }
 }
