@@ -1,4 +1,4 @@
-# Date picker
+# Lightning Web Component OSS Date picker
 
 ![Date picker demo](demo.gif)
 
