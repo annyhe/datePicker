@@ -3,11 +3,11 @@ import moment from 'moment';
 
 const today = moment();
 export default class DatePicker extends LightningElement {
-    isDatePickerInitialized;
+    lastClass;
     @track dateContext = moment();
     @track selectedDate = moment();
     @track error;
-    lastClass;
+    @track dates = [];
 
     get formattedSelectedDate() {
         return this.selectedDate.format('YYYY-MM-DD');
@@ -42,36 +42,15 @@ export default class DatePicker extends LightningElement {
             selectedDate.className = this.lastClass;
         }
 
-        const {date} = e.target.dataset;
+        const { date } = e.target.dataset;
         this.selectedDate = moment(date);
         this.dateContext = moment(date);
         this.lastClass = e.target.className;
         e.target.className = 'selected';
     }
 
-    cleanDatePicker() {
-        const datePickerHolder = this.template.querySelector(
-            '.datePickerHolder'
-        );
-        if (datePickerHolder) {
-            while (datePickerHolder.firstChild) {
-                datePickerHolder.removeChild(datePickerHolder.firstChild);
-            }
-        }
-
-        // datePicker is defined or null
-        return datePickerHolder;
-    }
-
     refreshDateNodes() {
-        const datePickerHolder = this.cleanDatePicker();
-        if (!datePickerHolder) {
-            this.error =
-                'Datepicker holder not found: element with class datePickerHolder was not rendered.';
-            return;
-        }
-
-        // datePickerHolder is defined
+        this.dates = [];
         this.error = '';
         const currentMoment = moment(this.dateContext);
         // startOf mutates moment, hence clone before use
@@ -89,35 +68,28 @@ export default class DatePicker extends LightningElement {
                         .startOf('week')
                         .clone()
                         .add(n + i, 'day');
-                    const listElem = document.createElement('li');
+                    let className = '';
                     if (day.month() === this.dateContext.month()) {
                         if (day.isSame(today, 'day')) {
-                            listElem.setAttribute('class', 'today');
+                            className = 'today';
                         } else if (day.isSame(this.selectedDate, 'day')) {
-                            listElem.setAttribute('class', 'selected');
+                            className = 'selected';
                         } else {
-                            listElem.setAttribute('class', 'date');
+                            className = 'date';
                         }
                     } else {
-                        listElem.setAttribute('class', 'padder');
+                        className = 'padder';
                     }
-                    listElem.setAttribute(
-                        'data-date',
-                        day.format('YYYY-MM-DD')
-                    );
-                    listElem.textContent = day.format('DD');
-                    listElem.onclick = this.setSelected.bind(this);
-                    datePickerHolder.appendChild(listElem);
+                    this.dates.push({
+                        className,
+                        formatted: day.format('YYYY-MM-DD'),
+                        text: day.format('DD')
+                    });
                 });
         }
     }
 
-    renderedCallback() {
-        if (this.isDatePickerInitialized) {
-            return;
-        }
-
-        this.isDatePickerInitialized = true;
+    connectedCallback() { 
         this.refreshDateNodes();
     }
 }
