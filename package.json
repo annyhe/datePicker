@@ -5,7 +5,7 @@
     "bugs": "https://github.com/annyhe/calendar/issues",
     "dependencies": {
         "lwc-services": "^1.2.2",
-        "moment": "^2.24.0"
+        "moment": "^2.29.4"
     },
     "devDependencies": {
         "husky": "^2.7.0",
